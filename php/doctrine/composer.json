@@ -1,0 +1,20 @@
+{
+    "name": "samuelsantos99/doctrine",
+    "description": "Projeto da Alura do curso de Doctrine",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Samuel Santos Henrique",
+            "email": "samuel.santos99@hotmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.7",
+        "doctrine/migrations": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Alura\\Doctrine\\": "src/"
+        }
+    }
+}
