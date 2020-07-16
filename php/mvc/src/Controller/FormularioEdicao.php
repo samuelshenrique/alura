@@ -6,8 +6,12 @@ use Alura\Cursos\Entity\Curso;
 use Alura\Cursos\Helper\RenderizadorDeHtmlTrait;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Doctrine\ORM\EntityManagerInterface;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class FormularioEdicao implements InterfaceControladorRequisicao
+class FormularioEdicao implements RequestHandlerInterface
 {
     use RenderizadorDeHtmlTrait;
 
@@ -20,18 +24,19 @@ class FormularioEdicao implements InterfaceControladorRequisicao
         $this->repositorioCursos = $this->entityManager->getRepository(Curso::class);
     }
 
-    public function processaRequisicao(): void
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $queryStrings = $request->getQueryParams();
+
+        $id = filter_var($queryStrings['id'], FILTER_VALIDATE_INT);
 
         if(is_null($id) || $id === false) {
-            header('Location: /listar-cursos');
-            return;
+            return new Response('302', ['Location' => '/listar-cursos']);
         }
 
         $curso = $this->repositorioCursos->find($id);
 
-        $this->renderizaHtml(
+        $html = $this->renderizaHtml(
             'cursos/formulario.php',
             [
                 'curso' => $curso,
@@ -39,7 +44,7 @@ class FormularioEdicao implements InterfaceControladorRequisicao
             ]
             );
 
-        
+        return new Response('200', [], $html);
         
     }
 }

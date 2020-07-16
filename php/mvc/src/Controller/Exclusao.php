@@ -7,8 +7,12 @@ use Alura\Cursos\Helper\FlashMessageTrait;
 use Alura\Cursos\Infra\EntityManagerCreator;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Nyholm\Psr7\Response;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
-class Exclusao implements InterfaceControladorRequisicao
+class Exclusao implements RequestHandlerInterface
 {
 
     use FlashMessageTrait;
@@ -21,18 +25,15 @@ class Exclusao implements InterfaceControladorRequisicao
         (new EntityManagerCreator())->getEntityManager();
     }
 
-    public function processaRequisicao(): void
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $id = filter_input(
-            INPUT_GET,
-            'id',
-            FILTER_VALIDATE_INT
-        );
+        $queryString = $request->getQueryParams();
+
+        $id = filter_var($queryString['id'], FILTER_VALIDATE_INT);
 
         if(is_null($id) || $id === false) {
             $this->defineMensagem('dange', 'Curso não existe');
-            header('Location: /listar-cursos');
-            return;
+            return new Response('302', ['Location' => '/listar-cursos']);
         }
 
         $curso = $this->entityManager->getReference(Curso::class, $id);
@@ -40,6 +41,6 @@ class Exclusao implements InterfaceControladorRequisicao
         $this->entityManager->flush();
         $this->defineMensagem('success', 'Curso excluído com sucesso');
         
-        header('Location: /listar-cursos');
+        return new Response('302', ['Location' => '/listar-cursos']);
     }
 }
