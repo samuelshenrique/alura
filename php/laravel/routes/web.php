@@ -20,7 +20,7 @@ Route::get('/', function() {
 Route::get('/series', 'SeriesController@index')
     ->name('listar_series');
 Route::get('/series/criar', 'SeriesController@create')
-    ->name('form_criar_serie');
+    ->name('form_criar_serie'); 
 Route::post('/series/criar', 'SeriesController@store');
 Route::delete('/series/{id}', 'SeriesController@destroy');
 Route::post('/series/{id}/editaNome', 'SeriesController@editaNome');
@@ -38,3 +38,7 @@ Route::get('/registrar', 'RegistroController@create');
 Route::post('registrar', 'RegistroController@store');
 
 Route::get('/logout', 'EntrarController@logout');
+
+Route::get('/buscarSeriesEmJson', function () {
+    return \App\Serie::all();
+});
