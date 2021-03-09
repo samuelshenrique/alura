@@ -1,0 +1,153 @@
+use sucos_vendas;
+
+SELECT * FROM tabela_de_produtos WHERE SABOR = "Manga"
+	OR TAMANHO = '470 ml';
+    
+SELECT * FROM tabela_de_produtos WHERE SABOR = "Manga"
+AND TAMANHO = '470 ml';
+
+SELECT * FROM tabela_de_produtos WHERE SABOR = "Manga"
+AND NOT(TAMANHO = '470 ml');
+
+SELECT * FROM tabela_de_produtos WHERE SABOR IN('Laranja', 'Manga');
+
+SELECT * FROM tabela_de_produtos WHERE SABOR = 'Laranja' OR SABOR = 'Manga';
+
+SELECT * FROM tabela_de_clientes WHERE CIDADE IN('Rio de Janeiro', 'São Paulo') AND IDADE >=20;
+
+SELECT * FROM tabela_de_clientes WHERE CIDADE IN('Rio de Janeiro', 'São Paulo') AND (IDADE >= 20 AND IDADE <=22);
+
+describe itens_notas_fiscais;
+
+SELECT * FROM itens_notas_fiscais WHERE QUANTIDADE > 60 AND PRECO <= 3;
+
+SELECT * FROM tabela_de_produtos WHERE SABOR like '%Maçã%' AND EMBALAGEM = 'PET';
+
+SELECT * FROM tabela_de_clientes WHERE NOME like '%Mattos';
+
+SELECT EMBALAGEM, TAMANHO FROM tabela_de_produtos;
+
+SELECT DISTINCT EMBALAGEM, TAMANHO FROM tabela_de_produtos WHERE SABOR = 'Laranja';
+
+SELECT * FROM tabela_de_clientes;
+
+SELECT DISTINCT BAIRRO FROM tabela_de_clientes WHERE CIDADE = 'Rio de Janeiro';
+
+SELECT * FROM tabela_de_produtos LIMIT 2,3;
+
+SELECT * FROM notas_fiscais;
+
+SELECT * FROM notas_fiscais WHERE DATA_VENDA >= 2017-01-01 LIMIT 10;
+
+SELECT * FROM tabela_de_produtos ORDER BY EMBALAGEM, NOME_DO_PRODUTO;
+
+SELECT * FROM tabela_de_produtos WHERE NOME_DO_PRODUTO = 'Linha Refrescante - 1 Litro - Morango/Limão';
+
+SELECT QUANTIDADE FROM tabela_de_produtos AS a INNER JOIN itens_notas_fiscais AS b ON a.CODIGO_DO_PRODUTO = b.CODIGO_DO_PRODUTO WHERE a.NOME_DO_PRODUTO = 'Linha Refrescante - 1 Litro - Morango/Limão' ORDER BY ABS(b.QUANTIDADE) DESC;
+
+SELECT CIDADE, SUM(PRIMEIRA_COMPRA) FROM tabela_de_clientes GROUP BY CIDADE;
+
+SELECT ESTADO, LIMITE_DE_CREDITO FROM tabela_de_clientes;
+
+SELECT ESTADO, CIDADE, SUM(LIMITE_DE_CREDITO) AS LIMIT_TOTAL FROM tabela_de_clientes GROUP BY ESTADO, CIDADE;
+
+SELECT EMBALAGEM, NOME_DO_PRODUTO, MAX(PRECO_DE_LISTA) AS MAIOR_PRECO FROM tabela_de_produtos GROUP BY EMBALAGEM, NOME_DO_PRODUTO;
+
+SELECT ESTADO, SUM(LIMITE_DE_CREDITO) AS SOMA_LIMITE FROM tabela_de_clientes
+GROUP BY ESTADO;
+
+SELECT ESTADO, SUM(LIMITE_DE_CREDITO) AS SOMA_LIMITE FROM tabela_de_clientes
+GROUP BY ESTADO HAVING SUM(LIMITE_DE_CREDITO) > 900000;
+
+SELECT EMBALAGEM, MAX(PRECO_DE_LISTA) AS MAIOR_PRECO, MIN(PRECO_DE_LISTA) AS MENOR_PRECO FROM tabela_de_produtos
+GROUP BY EMBALAGEM HAVING SUM(PRECO_DE_LISTA) <= 80 AND MAX(PRECO_DE_LISTA) >= 5;
+
+SELECT * FROM tabela_de_clientes;
+
+SELECT * FROM notas_fiscais;
+
+SELECT CPF, COUNT(*) AS QUANT_COMPRA FROM notas_fiscais
+WHERE YEAR(DATA_VENDA) = 2016
+GROUP BY CPF HAVING QUANT_COMPRA > 2000;
+
+SELECT * FROM tabela_de_produtos;
+
+SELECT NOME_DO_PRODUTO, PRECO_DE_LISTA,
+	CASE WHEN PRECO_DE_LISTA >= 12 THEN 'PRODUTO CARO'
+		WHEN PRECO_DE_LISTA >= 7 AND PRECO_DE_LISTA < 12 THEN 'PRODUTO EM CONTA'
+	ELSE 'PRODUTO BARATO' END AS STATUS_PRECO
+FROM tabela_de_produtos;
+
+SELECT 
+    EMBALAGEM,
+    AVG(PRECO_DE_LISTA) AS PRECO_MEDIO,
+    CASE
+        WHEN PRECO_DE_LISTA >= 12 THEN 'PRODUTO CARO'
+        WHEN
+            PRECO_DE_LISTA >= 7
+                AND PRECO_DE_LISTA < 12
+        THEN
+            'PRODUTO EM CONTA'
+        ELSE 'PRODUTO BARATO'
+    END AS STATUS_PRECO
+FROM
+    tabela_de_produtos
+GROUP BY EMBALAGEM , CASE
+    WHEN PRECO_DE_LISTA >= 12 THEN 'PRODUTO CARO'
+    WHEN
+        PRECO_DE_LISTA >= 7
+            AND PRECO_DE_LISTA < 12
+    THEN
+        'PRODUTO EM CONTA'
+    ELSE 'PRODUTO BARATO'
+END ORDER BY EMBALAGEM ASC, PRECO_MEDIO ASC
+;
+
+SELECT * FROM tabela_de_clientes;
+
+SELECT NOME, DATA_DE_NASCIMENTO,
+CASE
+	WHEN YEAR(DATA_DE_NASCIMENTO) < 1990 THEN 'VELHO'
+    WHEN YEAR(DATA_DE_NASCIMENTO) >= 1990 AND YEAR(DATA_DE_NASCIMENTO) <= 1995 THEN 'JOVEM'
+	ELSE 'CRIANÇA'
+END AS STATUS_IDADE
+FROM tabela_de_clientes;
+
+SELECT * FROM tabela_de_vendedores;
+SELECT * FROM notas_fiscais;
+SELECT * FROM itens_notas_fiscais;
+
+SELECT * FROM tabela_de_vendedores a
+	INNER JOIN notas_fiscais b
+	ON a.MATRICULA = b.MATRICULA;
+    
+SELECT a.MATRICULA, a.NOME, COUNT(*) as QUANTIDADE_VENDAS FROM tabela_de_vendedores a
+	INNER JOIN notas_fiscais b
+	ON a.MATRICULA = b.MATRICULA
+    GROUP BY a.MATRICULA, a.NOME
+    ORDER BY QUANTIDADE_VENDAS DESC;
+    
+SELECT a.MATRICULA, a.NOME, COUNT(*) as QUANTIDADE_VENDAS
+	FROM tabela_de_vendedores a, notas_fiscais b
+	WHERE a.MATRICULA = b.MATRICULA
+    GROUP BY a.MATRICULA, a.NOME
+    ORDER BY QUANTIDADE_VENDAS DESC;
+
+SELECT SUM((QUANTIDADE * PRECO)) AS valor FROM itens_notas_fiscais;
+
+SELECT YEAR(DATA_VENDA), SUM(QUANTIDADE * PRECO) AS FATURAMENTO
+FROM notas_fiscais NF INNER JOIN itens_notas_fiscais INF 
+ON NF.NUMERO = INF.NUMERO
+GROUP BY YEAR(DATA_VENDA);
+
+SELECT COUNT(*) FROM tabela_de_clientes;
+
+SELECT CPF, COUNT(*) FROM notas_fiscais GROUP BY CPF;
+
+SELECT DISTINCT A.CPF, A.NOME, B.CPF FROM tabela_de_clientes A
+	LEFT JOIN notas_fiscais B ON A.CPF = B.CPF
+    WHERE B.CPF IS NULL;
+    
+SELECT DISTINCT A.CPF, A.NOME, B.DATA_VENDA, B.CPF FROM tabela_de_clientes A
+	LEFT JOIN notas_fiscais B ON A.CPF = B.CPF
+    WHERE B.CPF IS NULL;
