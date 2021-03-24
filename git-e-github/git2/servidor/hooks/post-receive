@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git --git-dir="/home/samuelsantos99/Sites/alura/git-e-github/git2/servidor" --work-tree="/home/samuelsantos99/Sites/alura/git-e-github/git2/web" checkout -f
