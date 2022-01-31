@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renderizador Javascript Vanilla | Canal Dev Soutinho</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+
+<body>
+    <section class="canais">
+        <!-- <div class="canal" id="alura">
+            <p class="nome-canal'">Alura Cursos Online</p>
+            <button><span class="contagem">0</span> likes</button>
+        </div>
+        <div class="canal" id="rocket-seat">
+            <p class="nome-canal'">Rocket Seat</p>
+            <button><span class="contagem">0</span> likes</button>
+        </div>
+        <div class="canal" id="devmedia">
+            <p class="nome-canal'">DevMedia</p>
+            <button><span class="contagem">0</span> likes</button>
+        </div> -->
+    </section>
+    <script>
+        function handleClick(canalNome) {
+            canals.forEach((canalAtual) => {
+                if (canalNome === canalAtual.nome) {
+                    console.log('Atualiza os likes do: ' + canalAtual.nome);
+                    canalAtual.curtidas++;
+                }
+            })
+
+            render();
+        }
+
+        // DADOS
+        const canals = [
+            {
+                nome: 'Alura Cursos Online',
+                curtidas: 0
+            },
+            {
+                nome: 'Rocket Seat',
+                curtidas: 2
+            },
+            {
+                nome: 'DevMedia',
+                curtidas: 0
+            }
+        ];
+
+        // EXECUÇÃO
+        function render() {
+            console.log('[render]');
+
+            let canais = document.querySelector('.canais');
+            let data = canals.map((canal) => {
+                return `<div class="canal" onclick = "handleClick('${canal.nome}')">
+                        <p class="nome-canal'">${canal.nome}</p>
+                        <button><span class="contagem">${canal.curtidas}</span> likes</button>
+                    </div>`;
+            }).join('');
+
+            canais.innerHTML = data;
+        }
+
+        render();
+    </script>
+</body>
+
+</html>

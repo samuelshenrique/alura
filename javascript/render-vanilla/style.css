@@ -1,0 +1,41 @@
+* {
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: "Font Awesome 5 Free";
+}
+
+body {
+    display: flex;
+    height: 100vh;
+}
+
+.canais {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.canal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+.canal button::before {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    color: orangered;
+    content: "\f004";
+    margin-right: 5px;
+}
+
+.canal button {
+    background-color: transparent;
+}
