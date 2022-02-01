@@ -1,0 +1,77 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background: rgba(0, 0, 0, 0.8) url('./assets/img/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.list {
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 5px;
+    height: auto;
+    margin: 10px;
+    max-height: 80vh;
+    padding: 10px;
+    width: 33%;
+}
+
+.list__title {
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.list__add-task {
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    font-size: .8rem;
+    margin-top: 10px;
+    padding: 5px;
+    text-align: center;
+    transition: .3s;
+    width: 100%;
+}
+
+.list__add-task:hover {
+    background-color: rgb(248, 248, 248);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.list__items {
+    box-sizing: border-box;
+}
+
+.list__input {
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: .9rem;
+    margin-top: 10px;
+    padding: 10px 5px;
+    width: 100%;
+}
+
+.list__input--invisible {
+    display: none;
+}
+
+.list__task {
+    background-color: rgb(240, 240, 240);
+    border-radius: 5px;
+    box-sizing: border-box;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    margin-top: 10px;
+    width: 100%;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do List with Render | Vanilla JS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="list">
+        <h2 class="list__title">A fazer</h2>
+        <div class="list__items">
+        </div>
+        <input type="text" class="list__input list__input--invisible" placeholder="Escreva a sua tarefa" onfocus="">
+        <button class="list__add-task"><i class="fas fa-plus"></i> Adicionar novas tarefas</button>
+    </section>
+
+    <script>
+        // ================================
+        // DADOS
+        let tasks = [];
+
+
+        // ================================
+        // GATILHOS
+        document.querySelector('.list__add-task').addEventListener('click', () => {
+            let input = document.querySelector('.list__input');
+            input.classList.toggle('list__input--invisible');
+            input.focus();
+        });
+
+        document.querySelector('.list__input').addEventListener('keyup', (e) => {
+            let task = document.querySelector('.list__input');
+            if (e.key === 'Enter') {
+                addTask(task.value);
+                task.classList.add('list__input--invisible');
+                task.value = '';
+            }
+        });
+
+        // ================================
+        // RENDERIZAÇÃO
+        function addTask(titleTask) {
+            tasks.push(titleTask);
+            render();
+        }
+
+        function render() {
+            let listTasks = document.querySelector('.list__items');
+            let data = tasks.map((task) => {
+                return `<div class="list__task">${task}</div>`;
+            }).join('');
+            
+            listTasks.innerHTML = data;
+        }
+    </script>
+</body>
+</html>
