@@ -1,9 +1,15 @@
+function Title() {
+    return (
+        <h1>Está ignorando qualquer coisa da tag</h1>
+    );
+}
+
 // COMPONENTE REACT
 function HomePage() {
     // JSX
     return (
         <div>
-            <h1>Boas vindas de volta!</h1>
+            <Title>Boas vindas de volta!</Title>
             <h2>Discord - Alura Matrix</h2>
             <style jsx>{`
                 h1 {
