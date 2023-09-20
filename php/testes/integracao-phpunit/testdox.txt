@@ -24,4 +24,8 @@ Leilao (Alura\Leilao\Tests\Unit\Domain\Leilao)
 Leilao Dao (Alura\Leilao\Tests\Integration\Dao\LeilaoDao)
  [x] Insercao e busca devem funcionar with data set #0
  [x] Busca leiloes finalizados with data set #0
+ [x] Ao atualizar leilao status deve ser alterado
+
+Rest (Alura\Leilao\Tests\Integration\Web\Rest)
+ [x] Api rest deve retornar array de leiloes
 
