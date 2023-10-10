@@ -29,7 +29,7 @@ class ListaDeFormacoes implements RequestHandlerInterface
 
         $html = $this->getHtmlFromTemplate(
             'formacoes/lista.php',
-            compact($formacoes, $titulo)
+            compact('formacoes', 'titulo')
         );
 
         return new Response(200, [], $html);
