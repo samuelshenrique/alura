@@ -16,7 +16,7 @@
                     Editar
                 </a>
 
-                <a href="/excluir-curso?id=<?= $formacao->getId(); ?>" class="btn btn-sm btn-danger">
+                <a href="/excluir-formacao?id=<?= $formacao->getId(); ?>" class="btn btn-sm btn-danger">
                     Excluir
                 </a>
             </span>

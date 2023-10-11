@@ -23,7 +23,7 @@ class ExclusaoDeFormacao implements RequestHandlerInterface
         $formacao = $this->entityManager->getReference(Formacao::class, $request->getQueryParams()['id']);
         $this->entityManager->remove($formacao);
         $this->entityManager->flush();
-        $this->adicionaMensagemFlash('success', 'Curso excluído com sucesso');
+        $this->adicionaMensagemFlash('success', 'Formação excluída com sucesso');
 
         return new Response(302, ['Location' => '/listar-formacoes']);
     }
