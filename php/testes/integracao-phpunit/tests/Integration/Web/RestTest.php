@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Leilao\Tests\Integration\Web;
+namespace Alura\Tests\Integration\Web;
 
 use PHPUnit\Framework\TestCase;
 

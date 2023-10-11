@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Leilao\Tests\Unit\Service;
+namespace Alura\Tests\Unit\Service;
 
 use Alura\Leilao\Model\Lance;
 use Alura\Leilao\Model\Leilao;

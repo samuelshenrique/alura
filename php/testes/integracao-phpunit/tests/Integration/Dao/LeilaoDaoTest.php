@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Leilao\Tests\Integration\Dao;
+namespace Alura\Tests\Integration\Dao;
 
 use Alura\Leilao\Dao\Leilao as LeilaoDao;
 use Alura\Leilao\Infra\ConnectionCreator;

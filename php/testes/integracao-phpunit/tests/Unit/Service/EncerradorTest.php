@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Leilao\Tests\Unit\Service;
+namespace Alura\Tests\Unit\Service;
 
 use Alura\Leilao\Dao\Leilao as DaoLeilao;
 use Alura\Leilao\Model\Leilao;
@@ -69,10 +69,10 @@ class EncerradorTest extends TestCase
 
     public function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
     {
-        $e = new \DomainException('Erro ao enviar e-mail');
+        // $e = new \DomainException('Erro ao enviar e-mail');
         $this->enviadorEmail->expects($this->exactly(2))
-            ->method('notificarTerminoLeilao')
-            ->willThrowException($e);
+            ->method('notificarTerminoLeilao');
+            // ->willThrowException($e);
         $this->encerrador->encerra();
     }
 

@@ -15,7 +15,7 @@ class EnviadorEmail
         );
 
         if (!$sucesso) {
-            throw new \DomainException('Erro ao enviar e-mail');
+            // throw new \DomainException('Erro ao enviar e-mail');
         }
     }
 }

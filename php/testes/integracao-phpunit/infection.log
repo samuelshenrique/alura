@@ -1,0 +1,1507 @@
+Escaped mutants:
+================
+
+1) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Web/RestTest.php:13    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function testApiRestDeveRetornarArrayDeLeiloes()
+     {
+         $resposta = file_get_contents('http://127.0.0.1:8080/rest.php');
+-        $this->assertStringContainsString('200 OK', $http_response_header[0]);
++        
+         $this->assertIsArray(json_decode($resposta));
+     }
+ }
+
+
+2) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Web/RestTest.php:14    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $resposta = file_get_contents('http://127.0.0.1:8080/rest.php');
+         $this->assertStringContainsString('200 OK', $http_response_header[0]);
+-        $this->assertIsArray(json_decode($resposta));
++        
+     }
+ }
+
+
+3) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:13    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+ use PHPUnit\Framework\TestCase;
+ class LeilaoTest extends TestCase
+ {
+-    public function testProporLanceEmLeilaoFinalizadoDeveLancarExcecao()
++    protected function testProporLanceEmLeilaoFinalizadoDeveLancarExcecao()
+     {
+         $this->expectException(DomainException::class);
+         $this->expectExceptionMessage('Este leilão já está finalizado');
+
+
+4) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:15    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+ {
+     public function testProporLanceEmLeilaoFinalizadoDeveLancarExcecao()
+     {
+-        $this->expectException(DomainException::class);
++        
+         $this->expectExceptionMessage('Este leilão já está finalizado');
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->finaliza();
+
+
+5) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:16    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function testProporLanceEmLeilaoFinalizadoDeveLancarExcecao()
+     {
+         $this->expectException(DomainException::class);
+-        $this->expectExceptionMessage('Este leilão já está finalizado');
++        
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->finaliza();
+         $leilao->recebeLance(new Lance(new Usuario(''), 1000));
+
+
+6) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:21    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $this->expectExceptionMessage('Este leilão já está finalizado');
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->finaliza();
+-        $leilao->recebeLance(new Lance(new Usuario(''), 1000));
++        $leilao->recebeLance(new Lance(new Usuario(''), 999));
+     }
+     /**
+      * @param int $qtdEsperado
+
+
+7) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:21    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $this->expectExceptionMessage('Este leilão já está finalizado');
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->finaliza();
+-        $leilao->recebeLance(new Lance(new Usuario(''), 1000));
++        $leilao->recebeLance(new Lance(new Usuario(''), 1001));
+     }
+     /**
+      * @param int $qtdEsperado
+
+
+8) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:29    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      * @param Lance[] $lances
+      * @dataProvider dadosParaProporLances
+      */
+-    public function testProporLancesEmLeilaoDeveFuncionar(int $qtdEsperado, array $lances)
++    protected function testProporLancesEmLeilaoDeveFuncionar(int $qtdEsperado, array $lances)
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         foreach ($lances as $lance) {
+
+
+9) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:39    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         }
+         static::assertCount($qtdEsperado, $leilao->getLances());
+     }
+-    public function testMesmoUsuarioNaoPodeProporDoisLancesSeguidos()
++    protected function testMesmoUsuarioNaoPodeProporDoisLancesSeguidos()
+     {
+         $this->expectException(DomainException::class);
+         $this->expectExceptionMessage('Usuário já deu o último lance');
+
+
+10) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:41    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function testMesmoUsuarioNaoPodeProporDoisLancesSeguidos()
+     {
+-        $this->expectException(DomainException::class);
++        
+         $this->expectExceptionMessage('Usuário já deu o último lance');
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+
+
+11) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:42    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function testMesmoUsuarioNaoPodeProporDoisLancesSeguidos()
+     {
+         $this->expectException(DomainException::class);
+-        $this->expectExceptionMessage('Usuário já deu o último lance');
++        
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+         $leilao->recebeLance(new Lance($usuario, 1000));
+
+
+12) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:47    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $this->expectExceptionMessage('Usuário já deu o último lance');
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+-        $leilao->recebeLance(new Lance($usuario, 1000));
++        $leilao->recebeLance(new Lance($usuario, 999));
+         $leilao->recebeLance(new Lance($usuario, 1100));
+     }
+     public static function dadosParaProporLances()
+
+
+13) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:47    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $this->expectExceptionMessage('Usuário já deu o último lance');
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+-        $leilao->recebeLance(new Lance($usuario, 1000));
++        $leilao->recebeLance(new Lance($usuario, 1001));
+         $leilao->recebeLance(new Lance($usuario, 1100));
+     }
+     public static function dadosParaProporLances()
+
+
+14) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:48    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+         $leilao->recebeLance(new Lance($usuario, 1000));
+-        $leilao->recebeLance(new Lance($usuario, 1100));
++        $leilao->recebeLance(new Lance($usuario, 1099));
+     }
+     public static function dadosParaProporLances()
+     {
+
+
+15) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:48    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $usuario = new Usuario('Ganancioso');
+         $leilao = new Leilao('Objeto inútil');
+         $leilao->recebeLance(new Lance($usuario, 1000));
+-        $leilao->recebeLance(new Lance($usuario, 1100));
++        $leilao->recebeLance(new Lance($usuario, 1101));
+     }
+     public static function dadosParaProporLances()
+     {
+
+
+16) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:26    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      * @dataProvider leilaoComLancesEmOrdemDecrescente
+      * @dataProvider leilaoComLancesEmOrdemCrescente
+      */
+-    public function testAvaliadorDeveAcharMaiorValor(Leilao $leilao)
++    protected function testAvaliadorDeveAcharMaiorValor(Leilao $leilao)
+     {
+         $this->avaliador->avalia($leilao);
+         static::assertEquals(2000, $this->avaliador->getMaiorValor());
+
+
+17) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:38    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      * @dataProvider leilaoComLancesEmOrdemDecrescente
+      * @dataProvider leilaoComLancesEmOrdemCrescente
+      */
+-    public function testAvaliadorDeveAcharMenorValor(Leilao $leilao)
++    protected function testAvaliadorDeveAcharMenorValor(Leilao $leilao)
+     {
+         $this->avaliador->avalia($leilao);
+         static::assertEquals(1000, $this->avaliador->getMenorValor());
+
+
+18) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:50    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+      * @dataProvider leilaoComLancesEmOrdemDecrescente
+      * @dataProvider leilaoComLancesEmOrdemCrescente
+      */
+-    public function testAvaliadorDeveOrdenarOs3Lances(Leilao $leilao)
++    protected function testAvaliadorDeveOrdenarOs3Lances(Leilao $leilao)
+     {
+         $this->avaliador->avalia($leilao);
+         $lances = $this->avaliador->getTresMaioresLances();
+
+
+19) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:56    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $this->avaliador->avalia($leilao);
+         $lances = $this->avaliador->getTresMaioresLances();
+-        static::assertCount(3, $lances);
++        
+         static::assertEquals(2000, $lances[0]->getValor());
+         static::assertEquals(1500, $lances[1]->getValor());
+         static::assertEquals(1000, $lances[2]->getValor());
+
+
+20) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:57    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->avaliador->avalia($leilao);
+         $lances = $this->avaliador->getTresMaioresLances();
+         static::assertCount(3, $lances);
+-        static::assertEquals(2000, $lances[0]->getValor());
++        
+         static::assertEquals(1500, $lances[1]->getValor());
+         static::assertEquals(1000, $lances[2]->getValor());
+     }
+
+
+21) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:58    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $lances = $this->avaliador->getTresMaioresLances();
+         static::assertCount(3, $lances);
+         static::assertEquals(2000, $lances[0]->getValor());
+-        static::assertEquals(1500, $lances[1]->getValor());
++        
+         static::assertEquals(1000, $lances[2]->getValor());
+     }
+     public function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
+
+
+22) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:59    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         static::assertCount(3, $lances);
+         static::assertEquals(2000, $lances[0]->getValor());
+         static::assertEquals(1500, $lances[1]->getValor());
+-        static::assertEquals(1000, $lances[2]->getValor());
++        
+     }
+     public function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
+     {
+
+
+23) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:62    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         static::assertEquals(1500, $lances[1]->getValor());
+         static::assertEquals(1000, $lances[2]->getValor());
+     }
+-    public function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
++    protected function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
+
+
+24) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:66    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     public function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+-        $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
++        $leilao->recebeLance(new Lance(new Usuario('João'), 999));
+         $leilao->recebeLance(new Lance(new Usuario('Maria'), 1500));
+         $this->avaliador->avalia($leilao);
+         static::assertCount(2, $this->avaliador->getTresMaioresLances());
+
+
+25) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:66    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     public function testAvaliadorDeveRetornarOsMaioresLancesDisponiveis()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+-        $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
++        $leilao->recebeLance(new Lance(new Usuario('João'), 1001));
+         $leilao->recebeLance(new Lance(new Usuario('Maria'), 1500));
+         $this->avaliador->avalia($leilao);
+         static::assertCount(2, $this->avaliador->getTresMaioresLances());
+
+
+26) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:67    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
+-        $leilao->recebeLance(new Lance(new Usuario('Maria'), 1500));
++        $leilao->recebeLance(new Lance(new Usuario('Maria'), 1499));
+         $this->avaliador->avalia($leilao);
+         static::assertCount(2, $this->avaliador->getTresMaioresLances());
+     }
+
+
+27) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:67    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $leilao->recebeLance(new Lance(new Usuario('João'), 1000));
+-        $leilao->recebeLance(new Lance(new Usuario('Maria'), 1500));
++        $leilao->recebeLance(new Lance(new Usuario('Maria'), 1501));
+         $this->avaliador->avalia($leilao);
+         static::assertCount(2, $this->avaliador->getTresMaioresLances());
+     }
+
+
+28) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:39    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         //     ->getMock();
+         $this->leilaoDao->method('recuperarNaoFinalizados')->willReturn([$fiat147, $variant]);
+         $this->leilaoDao->method('recuperarFinalizados')->willReturn([$fiat147, $variant]);
+-        $this->leilaoDao->expects($this->exactly(2))->method('atualiza');
++        
+         // ->with($fiat147);
+         $this->enviadorEmail = $this->createMock(EnviadorEmail::class);
+         $this->encerrador = new Encerrador($this->leilaoDao, $this->enviadorEmail);
+
+
+29) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:47    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $this->enviadorEmail = $this->createMock(EnviadorEmail::class);
+         $this->encerrador = new Encerrador($this->leilaoDao, $this->enviadorEmail);
+     }
+-    public function testLeiloesComMaisDeUmaSemanaDevemSerEncerrados()
++    protected function testLeiloesComMaisDeUmaSemanaDevemSerEncerrados()
+     {
+         $this->encerrador->encerra();
+         // Assert
+
+
+30) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:54    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->encerrador->encerra();
+         // Assert
+         $leiloes = $this->leilaoDao->recuperarFinalizados();
+-        $this->assertCount(2, $leiloes);
++        
+         $this->assertTrue($leiloes[0]->estaFinalizado());
+         $this->assertTrue($leiloes[1]->estaFinalizado());
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+
+
+31) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:56    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         // Assert
+         $leiloes = $this->leilaoDao->recuperarFinalizados();
+         $this->assertCount(2, $leiloes);
+-        $this->assertTrue($leiloes[0]->estaFinalizado());
++        $this->assertTrue($leiloes[1]->estaFinalizado());
+         $this->assertTrue($leiloes[1]->estaFinalizado());
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+
+
+32) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:56    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         // Assert
+         $leiloes = $this->leilaoDao->recuperarFinalizados();
+         $this->assertCount(2, $leiloes);
+-        $this->assertTrue($leiloes[0]->estaFinalizado());
++        
+         $this->assertTrue($leiloes[1]->estaFinalizado());
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+
+
+33) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:57    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $leiloes = $this->leilaoDao->recuperarFinalizados();
+         $this->assertCount(2, $leiloes);
+         $this->assertTrue($leiloes[0]->estaFinalizado());
+-        $this->assertTrue($leiloes[1]->estaFinalizado());
++        $this->assertTrue($leiloes[0]->estaFinalizado());
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+     }
+
+
+34) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:57    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $leiloes = $this->leilaoDao->recuperarFinalizados();
+         $this->assertCount(2, $leiloes);
+         $this->assertTrue($leiloes[0]->estaFinalizado());
+-        $this->assertTrue($leiloes[1]->estaFinalizado());
++        
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+     }
+
+
+35) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:59    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->assertCount(2, $leiloes);
+         $this->assertTrue($leiloes[0]->estaFinalizado());
+         $this->assertTrue($leiloes[1]->estaFinalizado());
+-        $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
++        
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+     }
+     public function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
+
+
+36) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:64    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $this->assertTrue($leiloes[0]->estaFinalizado());
+         $this->assertTrue($leiloes[1]->estaFinalizado());
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+-        $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
++        
+     }
+     public function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
+     {
+
+
+37) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:70    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $this->assertEquals('Fiat 147 0KM', $leiloes[0]->recuperarDescricao());
+         $this->assertEquals('Variant 1972 0KM', $leiloes[1]->recuperarDescricao());
+     }
+-    public function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
++    protected function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
+     {
+         // $e = new \DomainException('Erro ao enviar e-mail');
+         $this->enviadorEmail->expects($this->exactly(2))->method('notificarTerminoLeilao');
+
+
+38) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:73    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function testDeveContinuarProcessamentoAoEncontrarErroAoEnviarEmail()
+     {
+-        // $e = new \DomainException('Erro ao enviar e-mail');
+-        $this->enviadorEmail->expects($this->exactly(2))->method('notificarTerminoLeilao');
++        
+         // ->willThrowException($e);
+         $this->encerrador->encerra();
+     }
+
+
+39) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:79    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         // ->willThrowException($e);
+         $this->encerrador->encerra();
+     }
+-    public function testSoDeveEnviarLeilaoPorEmailAposFinalizado()
++    protected function testSoDeveEnviarLeilaoPorEmailAposFinalizado()
+     {
+         $this->enviadorEmail->expects($this->exactly(2))->method('notificarTerminoLeilao')->willReturnCallback(function (Leilao $leilao) {
+             $this->assertTrue($leilao->estaFinalizado());
+
+
+40) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:81    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     }
+     public function testSoDeveEnviarLeilaoPorEmailAposFinalizado()
+     {
+-        $this->enviadorEmail->expects($this->exactly(2))->method('notificarTerminoLeilao')->willReturnCallback(function (Leilao $leilao) {
+-            $this->assertTrue($leilao->estaFinalizado());
+-        });
++        
+         $this->encerrador->encerra();
+     }
+ }
+
+
+41) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/EncerradorTest.php:84    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public function testSoDeveEnviarLeilaoPorEmailAposFinalizado()
+     {
+         $this->enviadorEmail->expects($this->exactly(2))->method('notificarTerminoLeilao')->willReturnCallback(function (Leilao $leilao) {
+-            $this->assertTrue($leilao->estaFinalizado());
++            
+         });
+         $this->encerrador->encerra();
+     }
+ }
+
+
+Timed Out mutants:
+==================
+
+Skipped mutants:
+================
+
+Not Covered mutants:
+====================
+
+1) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:17    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+     public static function setUpBeforeClass() : void
+     {
+         self::$pdo = new \PDO('sqlite::memory');
+-        self::$pdo->exec('CREATE TABLE IF NOT EXISTS leiloes(
+-            id INTEGER primary key,
+-            descricao TEXT,
+-            finalizado BOOL,
+-            dataInicio TEXT
+-        );');
++        
+         parent::setUpBeforeClass();
+     }
+     public function setUp() : void
+
+
+2) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:24    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+             finalizado BOOL,
+             dataInicio TEXT
+         );');
+-        parent::setUpBeforeClass();
++        
+     }
+     public function setUp() : void
+     {
+
+
+3) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:110    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         // Tear down
+         self::$pdo->rollBack();
+     }
+-    public static function leiloes() : array
++    protected static function leiloes() : array
+     {
+         // Arrange
+         $leilaoNaoFinalizado = new Leilao('Variant 0KM');
+
+
+4) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:116    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         // Arrange
+         $leilaoNaoFinalizado = new Leilao('Variant 0KM');
+         $leilaoFinalizado = new Leilao('Fiat 147 0KM');
+-        $leilaoFinalizado->finaliza();
++        
+         return [[[$leilaoNaoFinalizado, $leilaoFinalizado]]];
+     }
+ }
+
+
+5) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:118    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilaoNaoFinalizado = new Leilao('Variant 0KM');
+         $leilaoFinalizado = new Leilao('Fiat 147 0KM');
+         $leilaoFinalizado->finaliza();
+-        return [[[$leilaoNaoFinalizado, $leilaoFinalizado]]];
++        return [];
+     }
+ }
+
+
+6) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:119    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilaoNaoFinalizado = new Leilao('Variant 0KM');
+         $leilaoFinalizado = new Leilao('Fiat 147 0KM');
+         $leilaoFinalizado->finaliza();
+-        return [[[$leilaoNaoFinalizado, $leilaoFinalizado]]];
++        return [[]];
+     }
+ }
+
+
+7) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Integration/Dao/LeilaoDaoTest.php:120    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilaoNaoFinalizado = new Leilao('Variant 0KM');
+         $leilaoFinalizado = new Leilao('Fiat 147 0KM');
+         $leilaoFinalizado->finaliza();
+-        return [[[$leilaoNaoFinalizado, $leilaoFinalizado]]];
++        return [[[$leilaoFinalizado]]];
+     }
+ }
+
+
+8) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:51    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($usuario, 1000));
+         $leilao->recebeLance(new Lance($usuario, 1100));
+     }
+-    public static function dadosParaProporLances()
++    protected static function dadosParaProporLances()
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+
+
+9) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:55    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+10) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[0, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+11) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[2, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+12) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 999)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+13) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1001)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+14) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, []], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+15) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:56    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[[new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+16) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [1, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+17) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [3, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+18) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 999), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+19) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1001), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+20) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 1999)]]];
+     }
+ }
+
+
+21) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2001)]]];
+     }
+ }
+
+
+22) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+23) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Domain/LeilaoTest.php:57    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+     {
+         $usuario1 = new Usuario('Usuário 1');
+         $usuario2 = new Usuario('Usuário 2');
+-        return [[1, [new Lance($usuario1, 1000)]], [2, [new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
++        return [[1, [new Lance($usuario1, 1000)]], [[new Lance($usuario1, 1000), new Lance($usuario2, 2000)]]];
+     }
+ }
+
+
+24) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:74    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $this->avaliador->avalia($leilao);
+         static::assertCount(2, $this->avaliador->getTresMaioresLances());
+     }
+-    public static function leilaoComLancesEmOrdemCrescente()
++    protected static function leilaoComLancesEmOrdemCrescente()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $joao = new Usuario('João');
+
+
+25) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:81    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 999));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+
+
+26) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:81    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 1001));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+
+
+27) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:81    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+
+
+28) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:82    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1499));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+     }
+
+
+29) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:82    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1501));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+     }
+
+
+30) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:82    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+     }
+
+
+31) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:83    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 1999));
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemDecrescente()
+
+
+32) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:83    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 2001));
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemDecrescente()
+
+
+33) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:83    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($joao, 1000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemDecrescente()
+
+
+34) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:85    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($joao, 1000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        return [[$leilao]];
++        return [];
+     }
+     public static function leilaoComLancesEmOrdemDecrescente()
+     {
+
+
+35) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:86    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($joao, 1000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        return [[$leilao]];
++        return [[]];
+     }
+     public static function leilaoComLancesEmOrdemDecrescente()
+     {
+
+
+36) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:90    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($ana, 2000));
+         return [[$leilao]];
+     }
+-    public static function leilaoComLancesEmOrdemDecrescente()
++    protected static function leilaoComLancesEmOrdemDecrescente()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $joao = new Usuario('João');
+
+
+37) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:97    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 1999));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+
+
+38) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:97    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 2001));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+
+
+39) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:97    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+
+
+40) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:98    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1499));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+
+
+41) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:98    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1501));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+
+
+42) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:98    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+
+
+43) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:99    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 999));
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemAleatoria()
+
+
+44) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:99    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 1001));
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemAleatoria()
+
+
+45) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:99    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        
+         return [[$leilao]];
+     }
+     public static function leilaoComLancesEmOrdemAleatoria()
+
+
+46) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:101    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        return [[$leilao]];
++        return [];
+     }
+     public static function leilaoComLancesEmOrdemAleatoria()
+     {
+
+
+47) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:102    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        return [[$leilao]];
++        return [[]];
+     }
+     public static function leilaoComLancesEmOrdemAleatoria()
+     {
+
+
+48) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:106    [M] PublicVisibility
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+-    public static function leilaoComLancesEmOrdemAleatoria()
++    protected static function leilaoComLancesEmOrdemAleatoria()
+     {
+         $leilao = new Leilao('Fiat 147 0KM');
+         $joao = new Usuario('João');
+
+
+49) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:113    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1499));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+50) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:113    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        $leilao->recebeLance(new Lance($maria, 1501));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+51) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:113    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $joao = new Usuario('João');
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+-        $leilao->recebeLance(new Lance($maria, 1500));
++        
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+52) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:114    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 1999));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+53) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:114    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        $leilao->recebeLance(new Lance($ana, 2001));
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+54) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:114    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $maria = new Usuario('Maria');
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+-        $leilao->recebeLance(new Lance($ana, 2000));
++        
+         $leilao->recebeLance(new Lance($joao, 1000));
+         return [[$leilao]];
+     }
+ }
+
+
+55) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:115    [M] DecrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 999));
+         return [[$leilao]];
+     }
+ }
+
+
+56) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:115    [M] IncrementInteger
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        $leilao->recebeLance(new Lance($joao, 1001));
+         return [[$leilao]];
+     }
+ }
+
+
+57) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:115    [M] MethodCallRemoval
+
+--- Original
++++ New
+@@ @@
+         $ana = new Usuario('Ana');
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+-        $leilao->recebeLance(new Lance($joao, 1000));
++        
+         return [[$leilao]];
+     }
+ }
+
+
+58) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:117    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        return [[$leilao]];
++        return [];
+     }
+ }
+
+
+59) /home/samuelshenrique/projetos/alura/php/testes/integracao-phpunit/tests/Unit/Service/AvaliadorTest.php:118    [M] ArrayItemRemoval
+
+--- Original
++++ New
+@@ @@
+         $leilao->recebeLance(new Lance($maria, 1500));
+         $leilao->recebeLance(new Lance($ana, 2000));
+         $leilao->recebeLance(new Lance($joao, 1000));
+-        return [[$leilao]];
++        return [[]];
+     }
+ }
