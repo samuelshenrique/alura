@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests;
+
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriver;
@@ -7,6 +9,8 @@ use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverSelect;
 use PHPUnit\Framework\TestCase;
 use Tests\Infrastructure\WebDriverCreator;
+use Tests\PageObject\PaginaCadastroSeries;
+use Tests\PageObject\PaginaLogin;
 
 class CadastroSeriesTest extends TestCase
 {
@@ -16,17 +20,9 @@ class CadastroSeriesTest extends TestCase
     {
         // Arrange
         self::$driver = WebDriverCreator::createWebDriver();
-        self::$driver->get('http://localhost:8080/entrar');
-        
-        // Act
 
-        // tela de login
-        $inputEmailLogin = self::$driver->findElement(WebDriverBy::id('email'));
-        $inputPasswordLogin = self::$driver->findElement(WebDriverBy::id('password'));
-
-        $inputEmailLogin->sendKeys('email@example.com');
-        $inputPasswordLogin->sendKeys('123');
-        $inputPasswordLogin->submit();
+        $paginaLogin = new PaginaLogin(self::$driver);
+        $paginaLogin->realizaLoginCom('email@example.com', '123');
     }
 
     public static function tearDownAfterClass(): void
@@ -36,22 +32,13 @@ class CadastroSeriesTest extends TestCase
 
     public function testCadastrarNovaSerieDeveRedirecionarParaLista()
     {
-        self::$driver->findElement(WebDriverBy::linkText('Adicionar'))->click();
-
-        $inputNome = self::$driver->findElement(WebDriverBy::id('nome'));
-        $inputGenero = self::$driver->findElement(WebDriverBy::id('genre'));
-        $inputQuantidadeTemporadas = self::$driver->findElement(WebDriverBy::id('qtd_temporadas'));
-        $inputEpisodiosPorTemporada = self::$driver->findElement(WebDriverBy::id('ep_por_temporada'));
-
-        $inputNome->sendKeys('Teste');
-        $inputQuantidadeTemporadas->sendKeys('1');
-        $inputEpisodiosPorTemporada->sendKeys('1');
-
-        $selectGenero = new WebDriverSelect($inputGenero);
-        $selectGenero->selectByValue('acao');
-
-        $botaoEnviar = self::$driver->findElement(WebDriverBy::cssSelector('button[type="submit"]'));
-        $botaoEnviar->submit();
+        $paginaCadastroSeries = new PaginaCadastroSeries(self::$driver);
+        $paginaCadastroSeries->cadastrarSerie(
+            'Testando selenium',
+            2,
+            4,
+            'acao'
+        );
 
         // Assert
         $this->assertSame('http://localhost:8080/series', self::$driver->getCurrentURL());
