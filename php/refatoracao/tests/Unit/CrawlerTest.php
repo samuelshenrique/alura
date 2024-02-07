@@ -15,10 +15,10 @@ class CrawlerTest extends TestCase
 {
     public function testTryingTGetResultsWithHttpOnGoogleDomainMustFail()
     {
-        $domain = 'http://google.com';
+        $this->expectException(\InvalidArgumentException::class);
+        $domain = 'https://google.com';
         $crawler = new Crawler(new NoProxy());
         $crawler->getResults(new SearchTerm(''), $domain);
-        $this->assertIsObject($crawler);
     }
 
     public function testTryingToInstantiateACrawlerWithoutGoogleOnTheDomainMustFail()
