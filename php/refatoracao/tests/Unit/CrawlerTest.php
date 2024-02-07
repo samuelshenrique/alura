@@ -13,18 +13,20 @@ use Psr\Http\Message\StreamInterface;
 
 class CrawlerTest extends TestCase
 {
-    public function testTryingToInstantiateACrawlerWithHttpOnGoogleDomainMustFail()
+    public function testTryingTGetResultsWithHttpOnGoogleDomainMustFail()
     {
         $domain = 'http://google.com';
         $crawler = new Crawler(new NoProxy());
+        $crawler->getResults(new SearchTerm(''), $domain);
         $this->assertIsObject($crawler);
-
     }
 
     public function testTryingToInstantiateACrawlerWithoutGoogleOnTheDomainMustFail()
     {
         $this->expectException(\InvalidArgumentException::class);
-        new Crawler(new NoProxy(), 'invalid-domain');
+        $crawler = new Crawler(new NoProxy());
+        $searchTerm = new SearchTerm('Teste');
+        $crawler->getResults($searchTerm, 'invalid-domain');
     }
 
     public function testTryingToParseInvalidHtmlMustThrowException()

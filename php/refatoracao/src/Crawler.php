@@ -36,11 +36,13 @@ class Crawler
      */
     public function getResults(
         SearchTermInterface $searchTerm,
-        GoogleProxyInterface $proxy = null,
         string $googleDomain = 'google.com',
         string $countryCode = ''
     ): ResultList
     {
+        if (stripos($googleDomain, 'google.') === false || stripos($googleDomain, 'http') === 0) {
+            throw new \InvalidArgumentException('Invalid google domain');
+        }
 
         $googleUrl = $this->getGoogleUrl($searchTerm, $googleDomain, $countryCode);
         $response = $this->proxy->getHttpResponse($googleUrl);
@@ -108,7 +110,7 @@ class Crawler
      */
     private function getGoogleUrl(
         SearchTermInterface $searchTerm,
-        GoogleProxyInterface $googleDomain,
+        string $googleDomain,
         string $countryCode
     ): string {
         $domain = $googleDomain;

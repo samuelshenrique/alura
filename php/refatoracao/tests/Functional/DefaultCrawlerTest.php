@@ -18,7 +18,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler(new NoProxy());
 
-        $results = $crawler->getResults();
+        $results = $crawler->getResults($searchTerm);
         $this->checkResults($results);
     }
 
@@ -30,9 +30,9 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
     {
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler($searchTerm, $commonProxy);
+        $crawler = new Crawler($commonProxy);
         try {
-            $results = $crawler->getResults();
+            $results = $crawler->getResults($searchTerm);
 
             $this->checkResults($results);
         } catch (ConnectException $exception) {
@@ -54,8 +54,8 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
         try {
             $kProxy = new KProxy($serverNumber);
             $searchTerm = new SearchTerm('Test');
-            $crawler = new Crawler($searchTerm, $kProxy);
-            $results = $crawler->getResults();
+            $crawler = new Crawler($kProxy);
+            $results = $crawler->getResults($searchTerm);
 
             $this->checkResults($results);
         } catch (ServerException | ConnectException $e) {
