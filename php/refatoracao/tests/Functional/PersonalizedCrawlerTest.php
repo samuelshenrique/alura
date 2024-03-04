@@ -2,6 +2,7 @@
 namespace CViniciusSDias\GoogleCrawler\Tests\Functional;
 
 use CViniciusSDias\GoogleCrawler\Crawler;
+use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
 use CViniciusSDias\GoogleCrawler\Proxy\NoProxy;
 use CViniciusSDias\GoogleCrawler\SearchTerm;
 use GuzzleHttp\Exception\GuzzleException;
@@ -10,6 +11,7 @@ class PersonalizedCrawlerTest extends AbstractCrawlerTest
 {
     public function testSearchOnBrazilianGoogleWithoutProxy()
     {
+        $this->expectException(InvalidGoogleHtmlException::class);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler(new NoProxy());
 

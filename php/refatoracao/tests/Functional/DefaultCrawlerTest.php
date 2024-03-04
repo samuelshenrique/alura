@@ -15,6 +15,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
 {
     public function testSearchResultsWithoutProxy()
     {
+        $this->expectException(InvalidGoogleHtmlException::class);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler(new NoProxy());
 
