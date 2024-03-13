@@ -3,9 +3,10 @@ namespace CViniciusSDias\GoogleCrawler;
 
 use CViniciusSDias\GoogleCrawler\Exception\InvalidGoogleHtmlException;
 use CViniciusSDias\GoogleCrawler\Exception\InvalidResultException;
-use CViniciusSDias\GoogleCrawler\Proxy\{
-    GoogleProxyInterface, NoProxy
-};
+use CViniciusSDias\GoogleCrawler\Proxy\GoogleProxyAbstractFactory;
+use CViniciusSDias\GoogleCrawler\Proxy\HttpClient\GoogleHttpClient;
+use CViniciusSDias\GoogleCrawler\Proxy\NoProxyAbstractFactory;
+use CViniciusSDias\GoogleCrawler\Proxy\UrlParser\GoogleUrlParser;
 use Symfony\Component\DomCrawler\Crawler as DomCrawler;
 use Symfony\Component\DomCrawler\Link;
 use DOMElement;
@@ -18,13 +19,18 @@ use DOMElement;
  */
 class Crawler
 {
-    /** @var GoogleProxyInterface $proxy */
-    protected $proxy;
+    private GoogleHttpClient $httpClient;
+    private GoogleUrlParser $urlParser;
 
     public function __construct(
-        GoogleProxyInterface $proxy = null
+        GoogleProxyAbstractFactory $factory = null
     ) {
-        $this->proxy = $proxy ?? new NoProxy();
+        if ($factory === null) {
+            $factory = new NoProxyAbstractFactory();
+        }
+
+        $this->httpClient = $factory->createGoogleHttpClient();
+        $this->urlParser = $factory->createGoogleUrlParser();
     }
 
     /**
@@ -49,24 +55,17 @@ class Crawler
             $googleUrl .= "&gl={$countryCode}";
         }
 
-        $response = $this->proxy->getHttpResponse($googleUrl);
+        $response = $this->httpClient->getHttpResponse($googleUrl);
         $stringResponse = (string) $response->getBody();
         $domCrawler = new DomCrawler($stringResponse);
         $googleResultList = $this->createGoogleResultList($domCrawler);
 
         $resultList = new ResultList($googleResultList->count());
 
+        $domElementParser = new DomElementParser($this->urlParser);
         foreach ($googleResultList as $googleResultElement) {
-            try {
-                $parsedResult = $this->parseDomElement($googleResultElement);
-                $resultList->addResult($parsedResult);
-            } catch (InvalidResultException $exception) {
-                error_log(
-                    'Error parsing the following result: ' . print_r($googleResultElement, true),
-                    3,
-                    __DIR__ . '/../var/log/crawler-errors.log'
-                );
-            }
+            $parsedResultMaybe = $domElementParser->parse($googleResultElement);
+            $parsedResultMaybe->select(fn (Result $parsedResult) => $resultList->addResult($parsedResult));
         }
 
         return $resultList;
@@ -98,48 +97,9 @@ class Crawler
         $googleResult = new Result();
         $googleResult
             ->setTitle($resultLink->getNode()->nodeValue)
-            ->setUrl($this->parseUrl($resultLink->getUri()))
+            ->setUrl($this->urlParser->parseUrl($resultLink->getUri()))
             ->setDescription($description);
 
         return $googleResult;
-    }
-
-    /**
-     * Parses the URL using the parser provided by $proxy
-     *
-     * @param string $url
-     * @return string
-     * @throws InvalidResultException
-     */
-    private function parseUrl(string $url): string
-    {
-        return $this->proxy->parseUrl($url);
-    }
-
-    private function parseDomElement(DOMElement $result): Result
-    {
-        $resultCrawler = new DomCrawler($result);
-        $linkElement = $resultCrawler->filterXPath('//a')->getNode(0);
-        if (is_null($linkElement)) {
-            throw new InvalidResultException('Link element not found');
-        }
-
-        $resultLink = new Link($linkElement, 'http://google.com/');
-        $descriptionElement = $resultCrawler->filterXPath('//div[@class="BNeawe s3v9rd AP7Wnd"]//div[@class="BNeawe s3v9rd AP7Wnd"]')->getNode(0);
-
-        if (is_null($descriptionElement)) {
-            throw new InvalidResultException('Description element not found');
-        }
-
-        $isImageSuggestion = $resultCrawler->filterXpath('//img')->count() > 0;
-        if ($isImageSuggestion) {
-            throw new InvalidResultException('Result is an image suggestion');
-        }
-
-        if (strpos($resultLink->getUri(), 'http://google.com') === false) {
-            throw new InvalidResultException('Result is a google suggestion');
-        }
-
-        return $this->createResult($resultLink, $descriptionElement);
     }
 }

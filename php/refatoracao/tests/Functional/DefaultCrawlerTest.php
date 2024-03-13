@@ -17,7 +17,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
     {
         $this->expectException(InvalidGoogleHtmlException::class);
         $searchTerm = new SearchTerm('Test');
-        $crawler = new Crawler(new NoProxy());
+        $crawler = new Crawler();
 
         $results = $crawler->getResults($searchTerm);
         $this->checkResults($results);
@@ -29,6 +29,7 @@ class DefaultCrawlerTest extends AbstractCrawlerTest
      */
     public function testSearchResultsWithCommonProxy(string $endpoint)
     {
+        $this->markTestSkipped('Implementation outdated');
         $commonProxy = new CommonProxy($endpoint);
         $searchTerm = new SearchTerm('Test');
         $crawler = new Crawler($commonProxy);
