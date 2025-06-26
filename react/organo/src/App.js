@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Banner from './componentes/Banner';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
 import Rodape from './componentes/Rodape';
 import { v4 as uuidv4 } from 'uuid';
+import Banner from './componentes/Banner';
 
 function App() {
   const [times, setTime] = useState([
@@ -79,7 +79,7 @@ function App() {
 
   return (
     <div className="App">
-      <Banner />
+      <Banner enderecoImagem='/imagens/banner.png' alt='O banner principal da página do Organo' />
       <Formulario
         aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
         times={times}

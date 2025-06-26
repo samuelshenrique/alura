@@ -1,9 +1,19 @@
 import './Campo.css';
 
-const Campo = ({type = 'text', id, valor, obrigatorio, placeholder, aoAlterado, label}) => {
+interface CampoProps {
+    type?: string
+    id: string
+    valor: string
+    obrigatorio: boolean
+    placeholder: string
+    aoAlterado: (valor: string) => void
+    label: string
+}
+
+const Campo = ({type = 'text', id, valor, obrigatorio, placeholder, aoAlterado, label}: CampoProps) => {
     const placeholderModificada = `${placeholder}...`;
 
-    const aoDigitado = (evento) => {
+    const aoDigitado = (evento: React.ChangeEvent<HTMLInputElement>) => {
         aoAlterado(evento.target.value);
     }
 
@@ -17,7 +27,7 @@ const Campo = ({type = 'text', id, valor, obrigatorio, placeholder, aoAlterado, 
                 id={id}
                 name={id}
                 value={valor}
-                onChange={aoDigitado}
+                onChange={evento => aoDigitado}
                 placeholder={placeholderModificada}
                 required={obrigatorio}
             />
