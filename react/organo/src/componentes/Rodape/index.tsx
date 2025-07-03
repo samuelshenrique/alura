@@ -11,7 +11,7 @@ const Rodape = () => {
                     <a href='https://x.com/organo/'>
                         <img src='/imagens/tw.png' alt='Twitter do Organo' />
                     </a>
-                    <a href='https://instagram.com/organo/' alt='Instagram do Organo'>
+                    <a href='https://instagram.com/organo/'>
                         <img src='/imagens/ig.png' alt='Instagram do Organo' />
                     </a>
                 </div>

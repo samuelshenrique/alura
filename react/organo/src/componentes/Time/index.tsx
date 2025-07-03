@@ -1,10 +1,21 @@
 import hexToRgba from 'hex-to-rgba';
-import Colaborador from '../Colaborador';
 import './Time.css';
+import { IColaborador } from '../../compartilhado/interfaces/IColaborador.js';
+import Colaborador from '../Colaborador';
 
-const Time = (props) => {
+interface TimeProps {
+    id: string,
+    corPrimaria: string,
+    nome: string,
+    colaboradores: IColaborador[]
+    aoDeletar: (id: string) => void
+    aoFavoritar: (id: string) => void,
+    mudarCor: (valor: string, id: string) => void,
+}
+
+const Time = (props: TimeProps) => {
     return (
-        props.colaboradores.length > 0 &&
+        props.colaboradores.length > 0 ?
         <section className='time' key={props.id} style={{ backgroundColor: hexToRgba(props.corPrimaria, 0.6) }}>
             <input type='color' value={props.corPrimaria} onChange={evento => props.mudarCor(evento.target.value, props.id)} className='input-cor' />
 
@@ -14,17 +25,14 @@ const Time = (props) => {
                     return <Colaborador
                         corDeFundo={props.corPrimaria}
                         key={colaborador.id}
-                        id={colaborador.id}
-                        nome={colaborador.nome}
-                        cargo={colaborador.cargo}
-                        favorito={colaborador.favorito}
-                        imagem={colaborador.imagem}
+                        colaborador={colaborador}
                         aoDeletar={props.aoDeletar}
                         aoFavoritar={props.aoFavoritar}
                     />;
                 })}
             </div>
         </section>
+        : <></>
     );
 }
 

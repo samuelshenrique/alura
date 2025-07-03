@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import Formulario from './componentes/Formulario';
 import Time from './componentes/Time';
-import Rodape from './componentes/Rodape';
 import { v4 as uuidv4 } from 'uuid';
 import Banner from './componentes/Banner';
+import { IColaborador } from './compartilhado/interfaces/IColaborador';
+import Rodape from './componentes/Rodape';
 
 function App() {
   const [times, setTime] = useState([
@@ -45,17 +46,17 @@ function App() {
     },
   ]);
 
-  const [colaboradores, setColaborador] = useState([]);
+  const [colaboradores, setColaborador] = useState<IColaborador[]>([]);
 
-  const aoNovoColaboradorAdicionado = (colaborador) => {
+  const aoNovoColaboradorAdicionado = (colaborador: IColaborador) => {
     setColaborador([...colaboradores, colaborador]);
   };
 
-  const deletarColaborador = (id) => {
+  const deletarColaborador = (id: string) => {
     setColaborador(colaboradores.filter(colaborador => colaborador.id !== id));
   };
 
-  const mudarCorDoTime = (cor, id) => {
+  const mudarCorDoTime = (cor: string, id: string) => {
     setTime(times.map(time => {
       if (time.id === id) {
         time.cor = cor
@@ -64,11 +65,11 @@ function App() {
     }));
   }
   
-  const cadastrarTime = (novoTime) => {
+  const cadastrarTime = (novoTime: {nome: string, cor: string}) => {
     setTime([...times, {...novoTime, id:uuidv4()}]);
   }
 
-  const resolverFavorito = (id) => {
+  const resolverFavorito = (id: string) => {
     setColaborador(colaboradores.map(colaborador => {
       if (colaborador.id === id) {
         colaborador.favorito = !colaborador.favorito;
@@ -79,7 +80,7 @@ function App() {
 
   return (
     <div className="App">
-      <Banner enderecoImagem='/imagens/banner.png' alt='O banner principal da página do Organo' />
+      <Banner enderecoImagem='/imagens/banner.png' textoAlternativo='O banner principal da página do Organo' />
       <Formulario
         aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}
         times={times}
@@ -92,7 +93,6 @@ function App() {
           id={time.id}
           nome={time.nome}
           corPrimaria={time.cor}
-          corSecundaria={time.corSecundaria}
           colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
           aoDeletar={deletarColaborador}
           mudarCor={mudarCorDoTime}

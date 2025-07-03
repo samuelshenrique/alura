@@ -2,10 +2,17 @@ import { useState } from 'react';
 import Botao from '../Botao';
 import Campo from '../Campo';
 import ListaSuspensa from '../ListaSuspensa';
-import './Formulario.css';
 import { v4 as uuidv4 } from 'uuid';
+import './Formulario.css';
+import { IColaborador } from '../../compartilhado/interfaces/IColaborador';
 
-const Formulario = (props) => {
+interface FormularioProps {
+    aoColaboradorCadastrado: (colaborador: IColaborador) => void
+    cadastrarTime: (time: {nome: string, cor: string}) => void,
+    times: {id: string, nome: string}[],
+}
+
+const Formulario = (props: FormularioProps) => {
 
 
     const [nome, setNome] = useState('');
@@ -16,7 +23,7 @@ const Formulario = (props) => {
     const [nomeTime, setNomeTime] = useState('');
     const [corTime, setCorTime] = useState('');
 
-    const aoSalvar = (evento) => {
+    const aoSalvar = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault();
         props.aoColaboradorCadastrado({
             id: uuidv4(),
@@ -34,7 +41,7 @@ const Formulario = (props) => {
 
     return (
         <section className='formulario'>
-            <form onSubmit={aoSalvar}>
+            <form onSubmit={evento => aoSalvar(evento)}>
                 <h2>Preencha os dados para criar o card do colaborador.</h2>
                 <Campo
                     obrigatorio={true}
