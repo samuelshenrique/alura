@@ -1,7 +1,7 @@
 import './Campo.css';
 
 interface CampoProps {
-    type?: string
+    type?: 'text' | 'password' | 'date' | 'email' | 'number' | 'color'
     id: string
     valor: string
     obrigatorio?: boolean

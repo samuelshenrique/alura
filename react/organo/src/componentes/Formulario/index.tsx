@@ -19,6 +19,7 @@ const Formulario = (props: FormularioProps) => {
     const [cargo, setCargo] = useState('');
     const [imagem, setImagem] = useState('');
     const [time, setTime] = useState('');
+    const [data, setData] = useState('');
     
     const [nomeTime, setNomeTime] = useState('');
     const [corTime, setCorTime] = useState('');
@@ -31,7 +32,8 @@ const Formulario = (props: FormularioProps) => {
             nome,
             cargo,
             imagem,
-            time
+            time,
+            data
         });
         setNome('');
         setCargo('');
@@ -65,6 +67,14 @@ const Formulario = (props: FormularioProps) => {
                     placeholder='Informe o endereço da imagem'
                     valor={imagem}
                     aoAlterado={valor => setImagem(valor)}
+                />
+                <Campo
+                    type='date'
+                    label='Data de entrada do time'
+                    id='campo-data'
+                    placeholder=''
+                    valor={data}
+                    aoAlterado={valor => setData(valor)}
                 />
                 <ListaSuspensa
                     obrigatorio={true}
