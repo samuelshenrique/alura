@@ -1,14 +1,13 @@
 import Banner from "./components/Banner"
-import Link from "./components/Link"
+import Header from "./components/Header"
 
 function App() {
   return (
     <>
-    <Banner src="./bannerDesktop.png" alt="Banner" />
-    <Link href="https://google.com.br" target="_blank">Link</Link>
+      <Header />
+      <Banner src="./bannerDesktop.png" alt="Banner" />
     </>
   )
 }
 
 export default App
- 
