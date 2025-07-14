@@ -1,9 +1,14 @@
-import React from 'react'
+import styles from './Banner.module.css';
 
-const index = () => {
+type BannerProps = {
+  src: string;
+  alt: string;
+}
+
+function Banner({src, alt}: BannerProps) {
   return (
-    <div>index</div>
+    <img src={src} alt={alt} className={styles.banner} />
   )
 }
 
-export default index
+export default Banner

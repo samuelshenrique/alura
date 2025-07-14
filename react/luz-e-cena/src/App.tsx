@@ -1,6 +1,12 @@
+import Banner from "./components/Banner"
+import Link from "./components/Link"
+
 function App() {
   return (
-    <h1>Olá mundo</h1>
+    <>
+    <Banner src="./bannerDesktop.png" alt="Banner" />
+    <Link href="https://google.com.br" target="_blank">Link</Link>
+    </>
   )
 }
 
