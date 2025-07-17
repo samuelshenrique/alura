@@ -1,4 +1,3 @@
-import React from 'react'
 import styles from './CardMovie.module.css'
 import Tag from '../Tag'
 import type { Movie } from '../../types'
